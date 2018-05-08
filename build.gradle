@@ -1,34 +1,22 @@
-allprojects {
-    apply plugin: 'java-library'
-    sourceCompatibility = 1.7
-    targetCompatibility = 1.7
+plugins {
+    id 'java-library'
+}
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+version = '0.0.1'
 
-    version 'v0.0.1'
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-        testCompile group: 'junit', name: 'junit', version: '4.12'
-    }
+repositories {
+    jcenter()
 }
 
-subprojects {
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        from sourceSets.main.allSource
-    }
+task stage(dependsOn: ['build'])
+dependencies {
+    testImplementation 'junit:junit:4.12'
+}
 
-    tasks.withType(Test) {
-        testLogging {
-            events "skipped", "failed"
-            showStandardStreams = true
-            exceptionFormat = 'full'
-        }
-    }
-
-    artifacts {
-        archives sourcesJar
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version)
     }
 }
