@@ -1,4 +1,4 @@
-package com.github.FlorianSteenbuck.other.feature;
+package com.github.kil1s.other.feature;
 
 public class Features<T extends Enum> {
     protected T[] features = null;
